@@ -1,12 +1,12 @@
 package com.example.chatmeapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class login : AppCompatActivity() {
@@ -32,28 +32,29 @@ class login : AppCompatActivity() {
         btnsignup.setOnClickListener {
             Intent(this, signup::class.java).also {
                 startActivity(it)
-
             }
-            btnlogin.setOnClickListener {
-                val email = edtEmail.text.toString()
-                val password = edtPassword.text.toString()
-                if(email.isNotEmpty() && password.isNotEmpty()){
-                    login(email,password);
-                } else {
-                    Toast.makeText(this, "Fields cant be empty", Toast.LENGTH_LONG).show()
-                }
-            }
+        }
 
+        btnlogin.setOnClickListener {
+            val email = edtEmail.text.toString()
+            val password = edtPassword.text.toString()
+            if(email.isNotEmpty() && password.isNotEmpty()){
+                login(email,password)
+            } else {
+                Toast.makeText(this, "Fields cant be empty", Toast.LENGTH_LONG).show()
+            }
         }
     }
+
     private fun login(email: String, password: String){
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
-            this
-        ) { task ->
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
             if(task.isSuccessful){
-                Toast.makeText(this,"Login successfull", Toast.LENGTH_LONG).show()
+                Intent(this, MainActivity::class.java).apply {
+                    startActivity(this)
+                    finish()
+                }
             } else {
-                Toast.makeText(this,"Login successfull", Toast.LENGTH_LONG).show()
+                Log.d("loginActivity: " ,task.exception.toString())
             }
         }
     }

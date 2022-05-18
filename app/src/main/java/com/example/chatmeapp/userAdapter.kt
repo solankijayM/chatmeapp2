@@ -4,9 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class userAdapter(val context: Context, val userList: ArrayList<User>):
+class userAdapter(val context: Context, val userList: MutableList<User>):
     RecyclerView.Adapter<userAdapter.userviewHolder>() {
 
 
@@ -26,6 +27,6 @@ class userAdapter(val context: Context, val userList: ArrayList<User>):
     }
 
     class userviewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val  textName = itemView.findViewById<>(R.id.txt_name)
+        val  textName = itemView.findViewById<TextView>(R.id.txt_name)
     }
 }
