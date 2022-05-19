@@ -69,7 +69,7 @@ class signup : AppCompatActivity() {
         if(name.isEmpty() || email.isEmpty()){
             Toast.makeText(this, "Fields cant be empty ", Toast.LENGTH_LONG).show()
         } else {
-            val uid = UUID.randomUUID().toString()
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
             user = User(
                 uid = uid,
                 name = name,
